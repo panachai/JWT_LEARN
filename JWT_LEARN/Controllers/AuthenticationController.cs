@@ -16,8 +16,13 @@ namespace JWT_LEARN.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
+        public AuthenticationController()
+        {
+
+        }
+
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("Request")]
         public IActionResult RequestToken([FromBody] TokenRequestModel request)
         {
             if (request.Username == "Jon" && request.Password == "Demo")
@@ -44,6 +49,13 @@ namespace JWT_LEARN.Controllers
             }
 
             return BadRequest("Could not verify username and password");
+        }
+
+        [Authorize]
+        [HttpGet("Test")]
+        public IActionResult TestAuth()
+        {
+            return Ok("You have role to Access this page");
         }
     }
 }
